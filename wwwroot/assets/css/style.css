@@ -1,0 +1,158 @@
+/* link-grid 样式：2x2的可爱按钮网格 */
+.link-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 10px;
+    list-style: none;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    width: fit-content;
+}
+
+/* 每个格子（li）垂直居中 */
+.link-grid li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px; /* 你也可以改成 60px、40px 看更好看 */
+}
+
+/* 按钮链接样式 */
+.link-grid li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+/* hover 效果：轻盈透明渐变 */
+.link-grid li a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+.social-icons a {
+    font-size: 1.2rem;
+    color: #fdcbf1;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: scale(1.2);
+    color: #fdcbf1;
+}
+/* 夜光 GRID 发光 */
+.glow-grid li a {
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+.glow-grid li a::before {
+  content: "";
+  position: absolute;
+  top: -4px; left: -4px; right: -4px; bottom: -4px;
+  background: rgba(253,203,241,0.35);
+  filter: blur(8px);
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+.glow-grid li a:hover::before {
+  opacity: 1;
+}
+@font-face {
+  font-family: 'HFStickyNotes';
+  src: url('/assets/fonts/HFStickyNotes-2.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LoveIsFree';
+  src: url('/assets/fonts/Love-is-free-2.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SJNarrowLight';
+  src: url('/assets/fonts/SJ-Narrow-Light-2.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.hfsticky {
+  font-family: 'HFStickyNotes', sans-serif;
+  font-size: 3rem;
+  background: linear-gradient(90deg, #ee9ca7, #ffdde1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+
+  line-height: 1.3;
+  padding-top: 0.2em;
+}
+
+.love {
+  font-family: 'LoveIsFree', cursive, sans-serif;
+  font-size: 1.2rem;
+  color: #ff6f91; /* 白红色系甜甜的 */
+  margin-right: 8px;
+}
+
+.snow {
+  font-family: 'SJNarrowLight', sans-serif;
+  font-size: 1.2rem;
+  color: #c2e9fb; /* 冰蓝色，像雪一样冷冽 */
+  margin-right: 8px;
+}
+
+.sakura {
+  font-family: 'SJNarrowLight', sans-serif;
+  font-size: 1.2rem;
+  color: #fadada; /* 浅樱花粉色，柔柔的 */
+  margin-right: 8px;
+}
+
+
+/* 花瓣容器，保证它在光标下方 */
+#petal-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9998;
+}
+
+/* 单个花瓣样式 & 下落动画 */
+.petal {
+  position: fixed;
+  font-size: 16px;
+  pointer-events: none;
+  animation: fall 2s ease-out forwards;
+  opacity: 0.8;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100px) translateX(-50px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+p {
+  white-space: nowrap;
+}
