@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Violet Guild ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* CSS Custom Properties for easy theme management */
+    :root {
+      --primary-bg-color: #1e1e2f;
+      --primary-text-color: #fff;
+      --violet-accent-color: #7e57c2;
+      --violet-accent-color-darker: #5e35b1;
+      --violet-header-text-color: #e0b3ff;
+      --frosted-glass-bg-header: rgba(126, 87, 194, 0.25);
+      --frosted-glass-bg-about: rgba(126, 87, 194, 0.15);
+      --star-color-base: 218, 112, 214;
+      --heart-petal-color: #ffb3cc;
+      --trail-heart-color: hsla(330, 100%, 85%, 1);
+
+      --soft-text-color: #f0e6ff;
+      --guild-intro-heading-color: var(--violet-header-text-color);
+      --guild-intro-text-color: var(--soft-text-color);
+      --link-color: #c59eff;
+      --link-hover-color: var(--violet-header-text-color);
+      --guild-intro-highlight-bg: rgba(224, 179, 255, 0.15);
+      --guild-intro-highlight-text: var(--violet-header-text-color);
+      --clover-color: #a8e6cf;
+
+      --server-info-label-color: var(--violet-header-text-color);
+      --server-info-value-color: var(--soft-text-color);
+      --server-info-bg-color: rgba(0,0,0,0.15);
+      --server-info-border-color: rgba(224, 179, 255, 0.2);
+
+      /* Updated Discord widget styles */
+      --discord-info-bg-color: rgba(88, 101, 242, 0.1);
+      --discord-info-border-color: rgba(88, 101, 242, 0.3);
+      --discord-info-header-color: #b9bbbe;
+      --discord-link-color: #8ea1e1;
+      --discord-link-hover-color: #a2b0ec;
+
+      --ldw-bg: rgba(32,34,37,0.62); /* Background for the new widget */
+      --ldw-shadow: rgba(0,0,0,0.45); /* Shadow for the new widget */
+      --ldw-text-color: #fff;
+      --ldw-sub-text-color: rgba(255,255,255,0.75);
+      --ldw-online-count-color: #43b581; /* Discord online green */
+      --ldw-idle-count-color: #faa61a; /* Discord idle orange */
+      --ldw-dnd-count-color: #f04747; /* Discord dnd red */
+      --ldw-offline-count-color: #747f8d; /* Discord offline grey */
+      --ldw-member-bg: rgba(255,255,255,0.03); /* Background for member list items */
+    }
+
+    body {
+      margin: 0; padding: 0; font-family: 'Nunito', sans-serif;
+      background-color: var(--primary-bg-color); color: var(--primary-text-color);
+      overflow: hidden;
+    }
+
+    header {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 900;
+      text-align: center; padding: 30px 0;
+      background: var(--frosted-glass-bg-header);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      transition: transform .3s ease-out, box-shadow .3s ease-out;
+    }
+    header:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(126, 87, 194, 0.5); }
+    header h1 {
+      font-size: 2.8rem; color: var(--violet-header-text-color); margin: 0;
+      text-shadow: 0 0 8px rgba(224, 179, 255, 0.5);
+    }
+
+    main {
+      padding-top: 120px; position: relative; z-index: 200;
+      overflow-y: auto; max-height: calc(100vh - 120px);
+    }
+
+    .about {
+      max-width: 800px; margin: 40px auto; padding: 35px;
+      background: var(--frosted-glass-bg-about); border-radius: 16px;
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 0 25px rgba(126, 87, 194, 0.2);
+    }
+    .about h2 {
+        color: var(--violet-header-text-color); text-align: center;
+        margin-bottom: 30px; font-size: 2.2rem;
+    }
+
+    .guild-static-intro {
+        margin-bottom: 30px; line-height: 1.7; color: var(--guild-intro-text-color);
+    }
+    .guild-static-intro .intro-title {
+        font-size: 2.5rem; color: var(--guild-intro-heading-color); text-align: center;
+        margin-bottom: 25px; font-weight: 700; text-shadow: 0 0 10px rgba(224, 179, 255, 0.4);
+    }
+    .guild-static-intro .intro-title .icon { color: var(--heart-petal-color); }
+    .guild-static-intro h3 {
+        font-size: 1.6rem; color: var(--guild-intro-heading-color);
+        margin-top: 25px; margin-bottom: 15px; font-weight: 700;
+    }
+    .guild-static-intro h3 .clover { color: var(--clover-color); margin-right: 8px; }
+    .guild-static-intro p, .guild-static-intro ul { margin-bottom: 15px; font-size: 1rem; }
+    .guild-static-intro ul { list-style-type: '✔ '; padding-left: 25px; }
+    .guild-static-intro li { padding-left: 8px; margin-bottom: 8px; }
+    .guild-static-intro strong { color: var(--violet-header-text-color); font-weight: 700; }
+    .guild-static-intro .call-to-action {
+        margin-top: 25px; font-size: 1.1rem; text-align: center;
+        color: var(--guild-intro-text-color); font-style: italic;
+    }
+    .guild-static-intro .call-to-action .scroll-icon { color: var(--clover-color); margin-right: 5px; }
+    .guild-static-intro .highlight-mention {
+        display: block; background-color: var(--guild-intro-highlight-bg);
+        color: var(--guild-intro-highlight-text); padding: 3px 8px; border-radius: 6px;
+        font-weight: bold; margin: 10px auto; text-align: center; width: fit-content;
+    }
+    .guild-static-intro .guild-website-link a,
+    .server-info-item .value a {
+        color: var(--link-color); text-decoration: none; font-weight: bold;
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+    .guild-static-intro .guild-website-link a:hover,
+    .server-info-item .value a:hover {
+        color: var(--link-hover-color);
+        text-shadow: 0 0 8px var(--link-hover-color);
+    }
+
+    .server-info-container, .minecraft-server-container {
+      background-color: var(--server-info-bg-color);
+      border: 1px solid var(--server-info-border-color);
+      border-radius: 12px; padding: 25px; margin-top: 30px; line-height: 1.8;
+    }
+    .server-info-container h3, .minecraft-server-container h3 {
+        font-size: 1.8rem; color: var(--violet-header-text-color); text-align: center;
+        margin-bottom: 20px; border-bottom: 1px dashed var(--server-info-border-color);
+        padding-bottom: 10px; margin-top: 0;
+    }
+    .server-info-item {
+      display: flex; justify-content: space-between; padding: 8px 0;
+      border-bottom: 1px solid rgba(224, 179, 255, 0.1);
+      flex-wrap: wrap; /* Allow wrapping for long values */
+    }
+    .server-info-item:last-child { border-bottom: none; }
+    .server-info-item .label {
+      font-weight: bold; color: var(--server-info-label-color);
+      margin-right: 10px; flex-shrink: 0;
+    }
+    .server-info-item .value {
+      color: var(--server-info-value-color); text-align: right; word-break: break-word;
+      flex-grow: 1; /* Allow value to take remaining space */
+    }
+    .server-info-item .value.small-note {
+        font-size: 0.8em;
+        color: var(--soft-text-color);
+        opacity: 0.7;
+        width: 100%;
+        text-align: right;
+        margin-top: 2px;
+    }
+    .server-info-item .value ul {
+      list-style-type: '✔ '; padding-left: 20px; margin: 0; text-align: left;
+    }
+    .server-info-item .value li { margin-bottom: 5px; font-size: 0.9rem; }
+    .server-info-item details summary {
+      cursor: pointer; display: flex; justify-content: space-between;
+      align-items: center; width: 100%;
+    }
+    .server-info-item details summary .value {
+        color: var(--link-color); text-decoration: underline;
+    }
+    .server-info-item details summary::after {
+        content: '▶'; font-size: 0.8em; margin-left: 5px;
+        color: var(--server-info-label-color); transition: transform 0.2s ease-in-out;
+    }
+    .server-info-item details[open] summary::after { transform: rotate(90deg); }
+
+    #guild-members-list {
+      margin-top: 10px; border: 1px solid var(--server-info-border-color);
+      border-radius: 8px; padding: 15px; background-color: rgba(0,0,0,0.2);
+    }
+    #guild-members-list ul {
+      list-style-type: none; padding-left: 0; max-height: 250px;
+      overflow-y: auto; color: var(--soft-text-color);
+    }
+    #guild-members-list li {
+      padding: 10px 5px; border-bottom: 1px dashed rgba(224, 179, 255, 0.15);
+      display: flex; align-items: center;
+    }
+    #guild-members-list li:last-child { border-bottom: none; }
+    #guild-members-list li img {
+        width: 24px; height: 24px; border-radius: 50%;
+        margin-right: 10px; vertical-align: middle;
+    }
+    #guild-members-list li .status-indicator {
+        width: 8px; height: 8px; border-radius: 50%;
+        margin-right: 8px; display: inline-block;
+    }
+    #guild-members-list li .status-online { background-color: #43b581; }
+    #guild-members-list li .status-idle { background-color: #faa61a; }
+    #guild-members-list li .status-dnd { background-color: #f04747; }
+    #guild-members-list li .status-offline { background-color: #747f8d; }
+
+    /* Custom widget styling to match Violet theme */
+    .discord-info-box {
+      background-color: var(--discord-info-bg-color);
+      border: 1px solid var(--discord-info-border-color);
+      border-radius: 16px; padding: 25px;
+      margin: 40px auto; max-width: 400px; /* Adjusted for new widget */
+      text-align: center; box-shadow: 0 0 20px rgba(88, 101, 242, 0.15);
+    }
+    .discord-info-box h3 {
+      font-size: 1.8rem; color: var(--discord-info-header-color);
+      margin-bottom: 20px; border-bottom: 1px dashed var(--discord-info-border-color);
+      padding-bottom: 10px;
+    }
+
+    /* Styles for the new Discord widget from test.html */
+    #lovxy-discord-widget {
+      width: 320px;
+      max-width: 100%;
+      font-family: 'Nunito', sans-serif; /* Use Nunito to match theme */
+      margin: 0 auto; /* Center the widget */
+      box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+
+    #lovxy-discord-widget > div {
+      backdrop-filter: blur(8px);
+      background: var(--ldw-bg); /* Use theme variable */
+      border-radius:12px;
+      box-shadow:0 10px 22px var(--ldw-shadow); /* Use theme variable */
+      color: var(--ldw-text-color); /* Use theme variable */
+      padding:12px;
+      width:100%; /* Make it responsive */
+      overflow:hidden;
+      box-sizing: border-box;
+      transition: transform .3s ease-out; /* Add transition for hover effect */
+    }
+    #lovxy-discord-widget > div:hover {
+      transform: scale(1.02); /* Add hover effect */
+    }
+
+    #lovxy-discord-widget #ldw-icon {
+      width:64px;height:64px;border-radius:50%;border:2px solid rgba(255,255,255,0.08);object-fit:cover;
+    }
+    #lovxy-discord-widget #ldw-name {
+      font-weight:700;font-size:15px;line-height:1.1;word-break:break-word;
+    }
+    #lovxy-discord-widget #ldw-stats-small {
+      font-size:12px;color:var(--ldw-sub-text-color);margin-top:6px;
+    }
+    #lovxy-discord-widget #ldw-online { color: var(--ldw-online-count-color); font-weight: bold;}
+    #lovxy-discord-widget #ldw-idle { color: var(--ldw-idle-count-color); }
+    #lovxy-discord-widget #ldw-dnd { color: var(--ldw-dnd-count-color); }
+    #lovxy-discord-widget #ldw-offline-area { color: var(--ldw-offline-count-color); }
+
+
+    #lovxy-discord-widget #ldw-members {
+      list-style:none;padding:0;margin:10px 0 0 0;
+      max-height:130px; /* Keep max-height for scrollability */
+      overflow-y:auto; /* Ensure scroll if content overflows */
+      color: var(--soft-text-color); /* Match existing text color */
+    }
+    #lovxy-discord-widget #ldw-members li {
+      padding: 6px; border-radius: 6px; margin-bottom: 6px;
+      background: var(--ldw-member-bg); /* Use theme variable */
+      display: flex; align-items: center; gap: 8px;
+    }
+    #lovxy-discord-widget #ldw-members li:last-child { margin-bottom: 0; }
+
+    #lovxy-discord-widget #ldw-invite {
+      display:block;text-align:center;margin-top:10px;
+      background: var(--violet-accent-color); /* Use violet theme color */
+      padding:8px;border-radius:8px;color:white;text-decoration:none;font-weight:600;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    #lovxy-discord-widget #ldw-invite:hover {
+      background-color: var(--violet-accent-color-darker);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(126, 87, 194, 0.4);
+    }
+
+    /* Adjust the existing discord-join-link to match the new button's style more closely */
+    .discord-info-box .discord-join-link a {
+        background-color: var(--violet-accent-color); /* Match new widget button */
+        border: none; /* Remove border if it clashes */
+        box-shadow: none; /* Remove shadow if it clashes */
+        /* Retain other styles for consistency */
+        color: var(--primary-bg-color); /* Adjust text color to contrast with violet background */
+        font-weight: bold;
+        font-size: 1.1rem; padding: 10px 15px; border-radius: 8px; display: inline-block;
+        transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .discord-info-box .discord-join-link a:hover {
+        background-color: var(--violet-accent-color-darker);
+        color: var(--primary-text-color); /* Adjust text color on hover */
+        box-shadow: 0 0 10px var(--violet-accent-color);
+    }
+
+
+    a.back-btn {
+      position: fixed; bottom: 20px; left: 20px; z-index: 1100;
+      background: var(--violet-accent-color); color: var(--primary-text-color);
+      padding: 10px 18px; border-radius: 10px; text-decoration: none;
+      font-size: 1rem; box-shadow: 0 0 15px rgba(126, 87, 194, 0.6), 0 0 30px rgba(126, 87, 194, 0.3);
+      animation: floaty 3s ease-in-out infinite;
+      transition: transform .3s ease-out, box-shadow .3s ease-out, background .3s ease-out;
+    }
+    a.back-btn:hover {
+      background: var(--violet-accent-color-darker);
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 0 25px rgba(126, 87, 194, 0.8), 0 0 40px rgba(126, 87, 194, 0.4);
+    }
+    @keyframes floaty { 0% { transform: translateY(0); } 50% { transform: translateY(-3px); } 100% { transform: translateY(0); } }
+
+    .particle { position: absolute; pointer-events: none; opacity: 1; }
+    .heart-particle { color: var(--heart-petal-color); font-size: 1.2rem; }
+    .magic-dot-particle { width: 6px; height: 6px; border-radius: 50%; }
+
+    #cat-ears {
+      display: none; position: fixed; bottom: 10px; right: 10px;
+      font-size: 2rem; z-index: 999; user-select: none;
+      color: var(--violet-header-text-color);
+    }
+
+    canvas {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 1;
+    }
+    #meteor { z-index: 5; }
+    #trail { z-index: 800; }
+
+
+    main::-webkit-scrollbar { width: 8px; }
+    main::-webkit-scrollbar-track { background: var(--primary-bg-color); border-radius: 10px; }
+    main::-webkit-scrollbar-thumb {
+      background-color: var(--violet-accent-color); border-radius: 10px;
+      border: 2px solid var(--primary-bg-color);
+    }
+    main::-webkit-scrollbar-thumb:hover { background-color: var(--violet-accent-color-darker); }
+    #guild-members-list ul::-webkit-scrollbar { width: 6px; }
+    #guild-members-list ul::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); border-radius: 10px; }
+    #guild-members-list ul::-webkit-scrollbar-thumb { background-color: var(--violet-accent-color); border-radius: 10px; }
+
+  </style>
+</head>
+
+<body>
+  <a href="/" class="back-btn">← Back</a>
+  <header><h1>Welcome to the Violet Guild ✨</h1></header>
+
+  <main>
+    <section class="about">
+      <h2><i class="fas fa-shield-alt" style="margin-right: 10px; color: var(--clover-color);"></i>Our Guild</h2>
+      <div class="guild-static-intro">
+        <div class="intro-title"><span class="icon">💖</span> Welcome <span class="icon">💖</span></div>
+        <h3><span class="clover">🍀</span> About Us:</h3>
+        <ul>
+          <li><strong>Guild Name:</strong> Violet</li>
+          <li><strong>Guild Leader:</b> XiaoDoesArts</li>
+          <li><strong>Guild Level:</strong> Level 64 and Top #28</li>
+          <li>A friendly and supportive community for players of all skill levels</li>
+          <li>Over 30 members in guild and 350+ members in our Community</li>
+        </ul>
+        <h3><span class="clover">🍀</span> Requirements:</h3>
+        <ul>
+          <li>We ask our members to achieve a minimum of 50 wins per month</li>
+          <li>Active participation in guild events and tournaments</li>
+          <li>Positive attitude and respectful communication</li>
+          <li>Exceptions can be made for newer players showing potential</li>
+        </ul>
+        <h3><span class="clover">🍀</span> Why Join Violet?</h3>
+        <ul>
+          <li>We offer a supportive and kind community. </li>
+          <li>By joining Violet, you'll have the opportunity to connect with skilled and active players, improving your skills. </li>
+        </ul>
+        <p class="call-to-action"><span class="scroll-icon">📜</span> Join the Violet family today and elevate your gaming experience to new heights!</p>
+        <div class="highlight-mention">|| @everyone ||</div>
+        <p class="guild-website-link" style="text-align: center;">
+          <a href="https://lovxy.cloud/violet.html" target="_blank" rel="noopener noreferrer">Visit our Guild Page</a>
+        </p>
+      </div>
+
+      <div class="minecraft-server-container">
+          <h3><i class="fas fa-cube" style="margin-right: 10px; color: var(--clover-color);"></i>Our Minecraft Server</h3>
+          <iframe style="width:728px;height:90px;max-width:100%;border:none;display:block;margin:auto" src="https://namemc.com/server/k1.ungc.com.cn:23392/embed" width="728" height="90"></iframe>
+          <iframe style="width:728px;height:90px;max-width:100%;border:none;display:block;margin:auto" src="https://namemc.com/server/violet-smp.love/embed" width="728" height="90"></iframe>
+      </div>
+
+      <div class="server-info-container">
+        <h3><i class="fas fa-server" style="margin-right: 10px; color: var(--clover-color);"></i>Discord Server Details</h3>
+        <div class="server-info-item">
+          <span class="label">Server Name (ID):</span>
+          <span class="value" id="server-name-id">Violet Guild (<span id="actual-guild-id">1179799556435759166</span>)</span>
+        </div>
+        <div class="server-info-item">
+          <span class="label">Owner:</span>
+          <span class="value" id="server-owner">@XiaoDoesArts</span>
+        </div>
+        <div class="server-info-item">
+          <span class="label">Created:</span>
+          <span class="value" id="server-creation-date">November 30, 2023</span>
+        </div>
+        <div class="server-info-item">
+          <span class="label">Region:</span>
+          <span class="value" id="server-region">Global</span>
+        </div>
+        <div class="server-info-item">
+          <span class="label">Verification Level:</span>
+          <span class="value" id="server-verification">Medium</span>
+        </div>
+        <div class="server-info-item">
+          <span class="label">Features:</span>
+          <div class="value" id="server-features">
+            <ul>
+              <li>Community Server</li>
+              <li>Server Boosting Perks</li>
+              <li>Advanced Event Planning</li>
+              <li>Dedicated Game Channels</li>
+              <li>Custom Role System</li>
+              <li>Achievement Tracking</li>
+              <li>Automated Tournament Management</li>
+              <li>Weekly Guild Challenges</li>
+            </ul>
+          </div>
+        </div>
+        <div class="server-info-item">
+            <details id="members-details-toggle">
+                <summary>
+                    <span class="label">Members (Online/Sample Total):</span>
+                    <span class="value"><span id="online-members-count">0</span> / <span id="total-members-count">0</span> (Click to expand/collapse)</span>
+                </summary>
+                <div id="guild-members-list">
+                    <!-- This will be updated by the new script with bot data -->
+                    <p>Loading member list...</p>
+                </div>
+            </details>
+        </div>
+        <div class="server-info-item">
+          <span class="label">Human Members (from sample):</span>
+          <span class="value" id="human-members-count">Loading...</span>
+        </div>
+        <div class="server-info-item">
+          <span class="label">Bot Members (from sample):</span>
+          <span class="value" id="bot-members-count">Loading...</span>
+        </div>
+        <div class="server-info-item">
+          <span class="label">Channel Count (from widget):</span>
+          <span class="value" id="channel-stats">Loading...</span>
+        </div>
+        <div class="server-info-item">
+          <span class="label">Role Count:</span>
+          <span class="value" id="role-count">25 Roles</span>
+        </div>
+        <div class="server-info-item">
+          <span class="label">Emoji Count:</span>
+          <span class="value" id="emoji-count">45 Custom Emojis</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="discord-info-box">
+        <h3><i class="fab fa-discord" style="margin-right: 10px; color: var(--discord-link-color);"></i>Join Our Discord</h3>
+        <div class="widget-container">
+          <!-- Discord widget from test.html is embedded here -->
+          <div id="lovxy-discord-widget"></div>
+        </div>
+        <p class="discord-join-link">
+            <a id="discord-invite-link-main" href="#" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i>Connect to Server
+            </a>
+        </p>
+    </section>
+
+  </main>
+
+  <div id="cat-ears">Meow.</div>
+  <canvas id="meteor"></canvas>
+  <canvas id="trail"></canvas>
+
+  <audio id="hover-sound"
+         src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_d8f0cfe10e.mp3?filename=soft-click-109664.mp3"
+         preload="auto"></audio>
+  <audio id="bgm"
+         src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_ae995bce79.mp3?filename=sweet-lofi-ambient-111527.mp3"
+         autoplay loop preload="auto"></audio>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Original guild ID from violet.html, used for the iframe embed for general Discord widget if needed.
+      // This is now less relevant since we're using a custom bot endpoint for data.
+      const YOUR_GUILD_ID = '1179799556435759166'; // Your actual Guild ID from .env
+      const BOT_WIDGET_URL = "http://weiget.ericperry.serv00.net:3000/widget"; // Your bot's API endpoint (Port 3000 from .env)
+      const DISCORD_INVITE_CODE = 'KbAaVmDz'; // Replace with your actual Discord invite code, e.g., 'abcdefg'
+
+      const hoverSound = document.getElementById('hover-sound');
+      const guildMembersListDiv = document.getElementById('guild-members-list');
+      const catEarsDiv = document.getElementById('cat-ears');
+      const meteorCanvas = document.getElementById('meteor');
+      const meteorCtx = meteorCanvas.getContext('2d');
+      const trailCanvas = document.getElementById('trail');
+      const trailCtx = trailCanvas.getContext('2d');
+
+      // Server Info Elements (from original violet.html, updated by bot data)
+      const serverNameIdSpan = document.getElementById('server-name-id');
+      const actualGuildIdSpan = document.getElementById('actual-guild-id'); // Added to display actual GUILD_ID from bot data
+      const onlineMembersCountSpan = document.getElementById('online-members-count');
+      const totalMembersCountSpan = document.getElementById('total-members-count');
+      const humanMembersCountSpan = document.getElementById('human-members-count');
+      const botMembersCountSpan = document.getElementById('bot-members-count');
+      const channelStatsSpan = document.getElementById('channel-stats');
+      const discordInviteLinkMain = document.getElementById('discord-invite-link-main');
+
+      // Add hover sound effect to interactive elements
+      document.querySelectorAll('header, .about, #lovxy-discord-widget > div, a.back-btn, .guild-static-intro a, .server-info-item details summary, .discord-join-link a').forEach(el =>
+        el.addEventListener('mouseenter', () => {
+          if (hoverSound.readyState >= 2) {
+             hoverSound.currentTime = 0;
+             hoverSound.play().catch(e => console.warn("Sound effect playback failed:", e));
+          }
+        })
+      );
+
+      // Helper to create SVG fallback avatar (from test.html)
+      function svgInitialsDataUrl(name, size=128, bg="#5865F2"){
+        const initials = ((""+name).trim().split(/\s+/).map(s=>s[0]).slice(0,2).join('') || "?").toUpperCase();
+        const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}'>
+          <rect width='100%' height='100%' rx='20' ry='20' fill='${bg}'/>
+          <text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Segoe UI,Arial' font-size='48' fill='#fff'>${initials}</text>
+        </svg>`;
+        return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+      }
+
+      // ========== Discord Custom Widget Logic (adapted from test.html) ==========
+      const CONTAINER_ID = "lovxy-discord-widget";
+      const WIDTH = 320; // This width is for the inner container, max-width is handled by CSS
+
+      const container = document.getElementById(CONTAINER_ID);
+      container.innerHTML = `
+      <div style="
+          backdrop-filter: blur(8px);
+          background: var(--ldw-bg);
+          border-radius:12px;
+          box-shadow:0 10px 22px var(--ldw-shadow);
+          color: var(--ldw-text-color);
+          padding:12px;
+          width:100%;
+          overflow:hidden;
+          box-sizing: border-box;
+      ">
+        <div style="display:flex;gap:12px;align-items:center;">
+          <img id="ldw-icon" src="" alt="icon" style="width:64px;height:64px;border-radius:50%;border:2px solid rgba(255,255,255,0.08);object-fit:cover;">
+          <div style="flex:1;min-width:0">
+            <div id="ldw-name" style="font-weight:700;font-size:15px;line-height:1.1;word-break:break-word;">Loading...</div>
+            <div id="ldw-stats-small" style="font-size:12px;color:var(--ldw-sub-text-color);margin-top:6px">—</div>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
+          <div style="font-size:13px;color:rgba(255,255,255,0.9)">
+            <div>Online: <span id="ldw-online">0</span></div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.7);margin-top:6px">
+              Idle: <span id="ldw-idle">0</span> · DND: <span id="ldw-dnd">0</span>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:13px">Total: <span id="ldw-total">—</span></div>
+            <div style="font-size:12px;color:var(--ldw-offline-count-color);margin-top:6px" id="ldw-offline-area"></div>
+          </div>
+        </div>
+
+        <ul id="ldw-members" style="list-style:none;padding:0;margin:10px 0 0 0;max-height:130px;overflow-y:auto;">
+          <!-- Member counts will be injected here, individual members are not provided by bot -->
+          <li style='color:var(--ldw-sub-text-color);font-size:13px;'>Loading member data from bot...</li>
+        </ul>
+
+        <a id="ldw-invite" href="#" target="_blank" style="
+          display:block;text-align:center;margin-top:10px;background:#5865F2;padding:8px;border-radius:8px;color:white;text-decoration:none;font-weight:600">
+          Join
+        </a>
+      </div>
+      `;
+
+      // DOM refs for the new widget
+      const elName = container.querySelector("#ldw-name");
+      const elIcon = container.querySelector("#ldw-icon");
+      const elSmall = container.querySelector("#ldw-stats-small");
+      const elOnline = container.querySelector("#ldw-online");
+      const elIdle = container.querySelector("#ldw-idle");
+      const elDnd = container.querySelector("#ldw-dnd");
+      const elTotal = container.querySelector("#ldw-total");
+      const elMembers = container.querySelector("#ldw-members");
+      const elInvite = container.querySelector("#ldw-invite");
+      const elOfflineArea = container.querySelector("#ldw-offline-area");
+
+      // Fetch data from your bot's API
+      fetch(BOT_WIDGET_URL)
+        .then(r => {
+          if (!r.ok) {
+            // Check for CORS error specifically
+            if (r.status === 0) { // status 0 typically indicates a network error or CORS issue for fetch
+                throw new Error("Failed to fetch bot data (possible CORS issue or bot is not running/accessible).");
+            }
+            throw new Error(`HTTP error! status: ${r.status}`);
+          }
+          return r.json();
+        })
+        .then(data => {
+          // Update the custom widget with data from your bot
+          elName.textContent = data.name || "Discord Server";
+          elIcon.src = data.icon || svgInitialsDataUrl(data.name || "?", 128); // Use bot's icon or fallback
+          elInvite.href = `https://discord.gg/${DISCORD_INVITE_CODE}`; // Use the provided invite code
+          elSmall.textContent = `Total Members: ${data.total}`; // Display total members here
+
+          elOnline.textContent = data.counts.online || 0;
+          elIdle.textContent = data.counts.idle || 0;
+          elDnd.textContent = data.counts.dnd || 0;
+          elTotal.textContent = data.total || 0;
+          elOfflineArea.textContent = `Offline: ${data.counts.offline || 0}`;
+
+          // Update the original violet.html server info details
+          serverNameIdSpan.textContent = `${data.name || 'Violet Guild'} (ID: ${YOUR_GUILD_ID})`; // Bot doesn't give ID, keep original
+          actualGuildIdSpan.textContent = YOUR_GUILD_ID; // Display the GUILD_ID
+          onlineMembersCountSpan.textContent = data.counts.online || 0;
+          totalMembersCountSpan.textContent = data.total || 0;
+          humanMembersCountSpan.textContent = (data.counts.online + data.counts.idle + data.counts.dnd) || 0; // Sum of online/idle/dnd
+          botMembersCountSpan.textContent = "N/A (Bot does not distinguish)"; // Bot doesn't provide bot count separately in this structure
+          channelStatsSpan.textContent = "N/A (Bot does not provide channel count)"; // Bot doesn't provide channel count
+
+          // Since the bot doesn't provide individual member list, update this section accordingly
+          guildMembersListDiv.innerHTML = `
+              <ul>
+                  <li>在线: <span style="color:var(--ldw-online-count-color);">${data.counts.online || 0}</span></li>
+                  <li>挂机: <span style="color:var(--ldw-idle-count-color);">${data.counts.idle || 0}</span></li>
+                  <li>勿扰: <span style="color:var(--ldw-dnd-count-color);">${data.counts.dnd || 0}</span></li>
+                  <li>离线: <span style="color:var(--ldw-offline-count-color);">${data.counts.offline || 0}</span></li>
+                  <li>总计: <span style="color:var(--ldw-text-color);">${data.total || 0}</span></li>
+              </ul>
+              <p style='font-size:0.9em; color:rgba(255,255,255,0.6);'>机器人API不提供个人成员列表。</p>
+          `;
+          elMembers.innerHTML = `
+              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>在线: <span style="color:var(--ldw-online-count-color); font-weight: bold;">${data.counts.online || 0}</span></li>
+              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>挂机: <span style="color:var(--ldw-idle-count-color);">${data.counts.idle || 0}</span></li>
+              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>勿扰: <span style="color:var(--ldw-dnd-count-color);">${data.counts.dnd || 0}</span></li>
+              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>离线: <span style="color:var(--ldw-offline-count-color);">${data.counts.offline || 0}</span></li>
+              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>总计: <span style="font-weight: bold;">${data.total || 0}</span></li>
+          `;
+
+          // Update the main Discord invite link as well
+          discordInviteLinkMain.href = `https://discord.gg/${DISCORD_INVITE_CODE}`;
+          discordInviteLinkMain.textContent = '连接到服务器';
+
+
+        })
+        .catch(err => {
+          // Handle fetch errors for the custom widget
+          container.innerHTML = `<div style="padding:12px;background:var(--ldw-bg);color:var(--ldw-text-color);border-radius:10px;">
+            <div style="font-weight:700">加载失败</div>
+            <div style="font-size:13px;color:var(--ldw-sub-text-color);margin-top:8px">无法从机器人获取数据。请确保机器人已运行且端口正确，并检查浏览器控制台是否存在 CORS 错误。</div>
+          </div>`;
+          console.error('Failed to fetch bot data:', err);
+
+          // Also update the original violet.html server info details with error states
+          serverNameIdSpan.textContent = `Violet Guild (ID: ${YOUR_GUILD_ID}) - 数据不可用`;
+          actualGuildIdSpan.textContent = YOUR_GUILD_ID;
+          guildMembersListDiv.innerHTML = '<p>无法加载成员列表，请稍后再试或检查机器人状态。</p>';
+          onlineMembersCountSpan.textContent = 'N/A';
+          totalMembersCountSpan.textContent = 'N/A';
+          humanMembersCountSpan.textContent = 'N/A';
+          botMembersCountSpan.textContent = 'N/A';
+          channelStatsSpan.textContent = 'N/A';
+          discordInviteLinkMain.textContent = '无法连接';
+          discordInviteLinkMain.href = '#';
+        });
+
+      // ========== Original Violet.html Background Animations (kept as is) ==========
+      let stars = []; const numStars = 150;
+      function initStars() {
+        stars = []; meteorCanvas.width = window.innerWidth; meteorCanvas.height = window.innerHeight;
+        for (let i = 0; i < numStars; i++) {
+          stars.push({
+            x: Math.random() * meteorCanvas.width, y: Math.random() * meteorCanvas.height,
+            r: Math.random() * 1.8 + 0.4, vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() * 0.3 + 0.15) * (Math.random() < 0.5 ? 1 : -1)
+          });
+        }
+      }
+      function drawStars() {
+        meteorCtx.clearRect(0, 0, meteorCanvas.width, meteorCanvas.height);
+        const starColorBase = getComputedStyle(document.documentElement).getPropertyValue('--star-color-base').trim();
+        stars.forEach(s => {
+          meteorCtx.beginPath(); meteorCtx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+          meteorCtx.fillStyle = `rgba(${starColorBase}, ${Math.random() * 0.4 + 0.2})`;
+          meteorCtx.fill();
+          s.x += s.vx * s.r; s.y += s.vy * s.r;
+          if (s.x < -s.r) s.x = meteorCanvas.width + s.r; if (s.x > meteorCanvas.width + s.r) s.x = -s.r;
+          if (s.y < -s.r) s.y = meteorCanvas.height + s.r; if (s.y > meteorCanvas.height + s.r) s.y = -s.r;
+        });
+        requestAnimationFrame(drawStars);
+      }
+
+      const trails = []; const maxTrailParticles = 30; const trailParticleBaseSize = 6;
+      const trailGradientColor1 = '#a18cd1'; const trailGradientColor2 = '#fbc2eb';
+      function drawTrailParticle(ctx, x, y, size, alpha) {
+          const grad = ctx.createLinearGradient(x, y + size, x, y - size);
+          grad.addColorStop(0, trailGradientColor1); grad.addColorStop(1, trailGradientColor2);
+          ctx.beginPath(); ctx.arc(x, y, size, 0, 2 * Math.PI);
+          ctx.fillStyle = grad; ctx.globalAlpha = alpha; ctx.fill(); ctx.globalAlpha = 1.0;
+      }
+      document.body.addEventListener('mousemove', e => {
+        if (trails.length > maxTrailParticles) { trails.shift(); }
+        trails.push({ x: e.clientX, y: e.clientY, life: 45, initialLife: 45 });
+      }, { passive: true });
+      function drawTrail() {
+        trailCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+        for (let i = trails.length - 1; i >= 0; i--) {
+          const t = trails[i]; const progress = t.life / t.initialLife;
+          const currentSize = trailParticleBaseSize * progress; const currentAlpha = progress * 0.8;
+          if (currentSize > 0.5) { drawTrailParticle(trailCtx, t.x, t.y, currentSize, currentAlpha); }
+          t.life--; if (t.life <= 0) { trails.splice(i, 1); }
+        }
+        requestAnimationFrame(drawTrail);
+      }
+
+      document.body.addEventListener('click', e => {
+        const heartPetalColor = getComputedStyle(document.documentElement).getPropertyValue('--heart-petal-color').trim();
+        for (let i = 0; i < 5; i++) {
+          const heart = document.createElement('i'); heart.className = 'fas fa-heart particle heart-particle';
+          heart.style.left = `${e.pageX}px`; heart.style.top = `${e.pageY}px`; heart.style.color = heartPetalColor;
+          document.body.appendChild(heart);
+          let vx = (Math.random() - 0.5) * 3.5; let vy = (Math.random() - 0.5) * -3.5 - 1; let life = 70;
+          (function animateHeart() {
+            heart.style.transform = `translate(${vx*(70-life)*0.18}px, ${vy*(70-life)*0.18 + (70-life)*(70-life)*0.008}px) scale(${life/70})`;
+            heart.style.opacity = life/70; vy += 0.04; life--;
+            if (life <= 0) { heart.remove(); } else { requestAnimationFrame(animateHeart); }
+          })();
+        }
+        for (let j = 0; j < 8; j++) {
+          const dot = document.createElement('div'); dot.className = 'particle magic-dot-particle';
+          dot.style.left = `${e.pageX}px`; dot.style.top = `${e.pageY}px`;
+          dot.style.background = `hsla(${Math.random()*360}, 100%, 88%, 0.85)`;
+          document.body.appendChild(dot);
+          let dx = (Math.random() - 0.5) * 7; let dy = (Math.random() - 0.5) * 7 - 1.5; let life = 55;
+          (function animateDot() {
+            dot.style.transform = `translate(${dx*(55-life)*0.1}px, ${dy*(55-life)*0.1 + (55-life)*(55-life)*0.007}px) scale(${life/55})`;
+            dot.style.opacity = life/55; dy += 0.09; life--;
+            if (life <= 0) { dot.remove(); } else { requestAnimationFrame(animateDot); }
+          })();
+        }
+      });
+
+      window.addEventListener('mousemove', e => {
+        const isActiveCorner = e.clientX > window.innerWidth - 100 && e.clientY > window.innerHeight - 100;
+        const backBtn = document.querySelector('a.back-btn');
+        const discordWidgetBox = document.querySelector('.discord-info-box'); // This selects the whole box
+        let isOverInteractiveElement = false;
+        if (backBtn) { const backBtnRect = backBtn.getBoundingClientRect(); if (e.clientX >= backBtnRect.left && e.clientX <= backBtnRect.right && e.clientY >= backBtnRect.top && e.clientY <= backBtnRect.bottom) { isOverInteractiveElement = true; } }
+        if (discordWidgetBox && !isOverInteractiveElement) {
+          const widgetRect = discordWidgetBox.getBoundingClientRect();
+          // Check if mouse is over the discord-info-box itself
+          if(e.clientX >= widgetRect.left && e.clientX <= widgetRect.right && e.clientY >= widgetRect.top && e.clientY <= widgetRect.bottom) {
+            isOverInteractiveElement = true;
+          }
+        }
+        if (isActiveCorner && !isOverInteractiveElement) { catEarsDiv.style.display = 'block'; } else { catEarsDiv.style.display = 'none'; }
+      }, { passive: true });
+
+      function handleResize() {
+        meteorCanvas.width = window.innerWidth; meteorCanvas.height = window.innerHeight;
+        trailCanvas.width = window.innerWidth; trailCanvas.height = window.innerHeight;
+        initStars();
+      }
+      window.addEventListener('resize', handleResize);
+      handleResize(); requestAnimationFrame(drawStars); requestAnimationFrame(drawTrail);
+    });
+  </script>
+</body>
+</html>
