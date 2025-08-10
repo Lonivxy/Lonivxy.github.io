@@ -406,20 +406,13 @@
         </div>
         <div class="server-info-item">
           <span class="label">Verification Level:</span>
-          <span class="value" id="server-verification">Medium</span>
+          <span class="value" id="server-verification">Low/span>
         </div>
         <div class="server-info-item">
           <span class="label">Features:</span>
           <div class="value" id="server-features">
             <ul>
               <li>Community Server</li>
-              <li>Server Boosting Perks</li>
-              <li>Advanced Event Planning</li>
-              <li>Dedicated Game Channels</li>
-              <li>Custom Role System</li>
-              <li>Achievement Tracking</li>
-              <li>Automated Tournament Management</li>
-              <li>Weekly Guild Challenges</li>
             </ul>
           </div>
         </div>
@@ -436,24 +429,24 @@
             </details>
         </div>
         <div class="server-info-item">
-          <span class="label">Human Members (from sample):</span>
+          <span class="label">Human Members:</span>
           <span class="value" id="human-members-count">Loading...</span>
         </div>
         <div class="server-info-item">
-          <span class="label">Bot Members (from sample):</span>
+          <span class="label">Bot Members:</span>
           <span class="value" id="bot-members-count">Loading...</span>
         </div>
         <div class="server-info-item">
-          <span class="label">Channel Count (from widget):</span>
+          <span class="label">Channel Count:</span>
           <span class="value" id="channel-stats">Loading...</span>
         </div>
         <div class="server-info-item">
           <span class="label">Role Count:</span>
-          <span class="value" id="role-count">25 Roles</span>
+          <span class="value" id="role-count">N/A Roles</span>
         </div>
         <div class="server-info-item">
           <span class="label">Emoji Count:</span>
-          <span class="value" id="emoji-count">45 Custom Emojis</span>
+          <span class="value" id="emoji-count">N/A Custom Emojis</span>
         </div>
       </div>
     </section>
@@ -629,33 +622,33 @@
           // Since the bot doesn't provide individual member list, update this section accordingly
           guildMembersListDiv.innerHTML = `
               <ul>
-                  <li>在线: <span style="color:var(--ldw-online-count-color);">${data.counts.online || 0}</span></li>
-                  <li>挂机: <span style="color:var(--ldw-idle-count-color);">${data.counts.idle || 0}</span></li>
-                  <li>勿扰: <span style="color:var(--ldw-dnd-count-color);">${data.counts.dnd || 0}</span></li>
-                  <li>离线: <span style="color:var(--ldw-offline-count-color);">${data.counts.offline || 0}</span></li>
-                  <li>总计: <span style="color:var(--ldw-text-color);">${data.total || 0}</span></li>
+                  <li>在线Online: <span style="color:var(--ldw-online-count-color);">${data.counts.online || 0}</span></li>
+                  <li>挂机Idle: <span style="color:var(--ldw-idle-count-color);">${data.counts.idle || 0}</span></li>
+                  <li>勿扰DND: <span style="color:var(--ldw-dnd-count-color);">${data.counts.dnd || 0}</span></li>
+                  <li>离线Offline: <span style="color:var(--ldw-offline-count-color);">${data.counts.offline || 0}</span></li>
+                  <li>总计Total: <span style="color:var(--ldw-text-color);">${data.total || 0}</span></li>
               </ul>
-              <p style='font-size:0.9em; color:rgba(255,255,255,0.6);'>机器人API不提供个人成员列表。</p>
+              <p style='font-size:0.9em; color:rgba(255,255,255,0.6);'>BOT API couldnt support member list</p>
           `;
           elMembers.innerHTML = `
-              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>在线: <span style="color:var(--ldw-online-count-color); font-weight: bold;">${data.counts.online || 0}</span></li>
-              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>挂机: <span style="color:var(--ldw-idle-count-color);">${data.counts.idle || 0}</span></li>
-              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>勿扰: <span style="color:var(--ldw-dnd-count-color);">${data.counts.dnd || 0}</span></li>
-              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>离线: <span style="color:var(--ldw-offline-count-color);">${data.counts.offline || 0}</span></li>
-              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>总计: <span style="font-weight: bold;">${data.total || 0}</span></li>
+              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>在线Online: <span style="color:var(--ldw-online-count-color); font-weight: bold;">${data.counts.online || 0}</span></li>
+              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>挂机Idle: <span style="color:var(--ldw-idle-count-color);">${data.counts.idle || 0}</span></li>
+              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>勿扰DND: <span style="color:var(--ldw-dnd-count-color);">${data.counts.dnd || 0}</span></li>
+              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>离线Offline: <span style="color:var(--ldw-offline-count-color);">${data.counts.offline || 0}</span></li>
+              <li style='color:var(--ldw-sub-text-color);font-size:13px;'>总计Total: <span style="font-weight: bold;">${data.total || 0}</span></li>
           `;
 
           // Update the main Discord invite link as well
           discordInviteLinkMain.href = `https://discord.gg/${DISCORD_INVITE_CODE}`;
-          discordInviteLinkMain.textContent = '连接到服务器';
+          discordInviteLinkMain.textContent = '连接到服务器Connect to Server';
 
 
         })
         .catch(err => {
           // Handle fetch errors for the custom widget
           container.innerHTML = `<div style="padding:12px;background:var(--ldw-bg);color:var(--ldw-text-color);border-radius:10px;">
-            <div style="font-weight:700">加载失败</div>
-            <div style="font-size:13px;color:var(--ldw-sub-text-color);margin-top:8px">无法从机器人获取数据。请确保机器人已运行且端口正确，并检查浏览器控制台是否存在 CORS 错误。</div>
+            <div style="font-weight:700">加载失败 Fail to load.</div>
+            <div style="font-size:13px;color:var(--ldw-sub-text-color);margin-top:8px">无法从机器人获取数据。请确保机器人已运行且端口正确，并检查浏览器控制台是否存在 CORS 错误。| Could not retrieve data from the bot API. Please ensure the bot is running and the port settings are correct. Also check the browser console for any CORS errors.</div>
           </div>`;
           console.error('Failed to fetch bot data:', err);
 
@@ -668,7 +661,7 @@
           humanMembersCountSpan.textContent = 'N/A';
           botMembersCountSpan.textContent = 'N/A';
           channelStatsSpan.textContent = 'N/A';
-          discordInviteLinkMain.textContent = '无法连接';
+          discordInviteLinkMain.textContent = '无法连接|Unable to connect';
           discordInviteLinkMain.href = '#';
         });
 
